@@ -80,3 +80,15 @@ test('getPrecision', function(t) {
 	})
 	t.end()
 })
+
+test('no negative zero', function(t) {
+	t.equal(math.add('-1', '1'), '0')
+	t.equal(math.subtract('1', '1'), '0')
+	t.equal(math.multiply('-1', '0'), '0')
+
+	t.equal(math.add('-1', '1.0'), '0.0')
+	t.equal(math.subtract('1', '1.0'), '0.0')
+	t.equal(math.multiply('-1', '0.0'), '0.0')
+
+	t.end()
+})
