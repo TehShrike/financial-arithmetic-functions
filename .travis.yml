@@ -2,6 +2,3 @@ language: node_js
 node_js:
 - "4.1"
 sudo: false
-script:
-  - npm test
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run browserstack || true'
