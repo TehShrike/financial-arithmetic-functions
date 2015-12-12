@@ -1,6 +1,6 @@
 {
   "name": "financial-arithmetic-functions",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A set of functions for doing math on numbers without floating point numbers",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test:browserify": "browserify test/test.js | node",
     "test": "npm run test:node && npm run test:browserify && npm run test:readme"
   },
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/TehShrike/financial-arithmetic-functions.git"
   },
