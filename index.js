@@ -31,9 +31,20 @@ function add(a, b) {
 	return normalized.precision > 0 ? addDecimal(sum, normalized.precision) : sum
 }
 
+function subtract(a, b) {
+	validateAndThrow(a)
+	validateAndThrow(b)
+
+	var normalized = normalizeToSamePrecision(a, b)
+
+	var result = new BigInteger(normalized.a).subtract(new BigInteger(normalized.b)).toString()
+
+	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
+}
 
 module.exports.validate = validate
 module.exports.add = add
+module.exports.subtract = subtract
 
 function normalizeToSamePrecision(a, b) {
 	var precisionA = getPrecision(a)

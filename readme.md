@@ -11,9 +11,29 @@ Require with `var math = require('financial-arithmetic-functions')`
 var math = require('./')
 -->
 
+# validate(str)
+
+Can you pass it in to any of the other functions?
+
 ```js
 math.validate('123') // => true
 math.validate('123.444') // => true
 math.validate('123.') // => false
 math.validate(123) // => false
+```
+
+# add(a, b)
+
+```js
+math.add('+123', '9.999') // => '132.999'
+math.add('1.1', '1.234') // => '2.334'
+math.add('5', '987876765654543432321') // => '987876765654543432326'
+```
+
+# subtract(a, b)
+
+```js
+math.subtract('123', '100') // => '23'
+math.subtract('44', '-11') // => '55'
+math.subtract('1.0000', '0.004', '.996')
 ```
