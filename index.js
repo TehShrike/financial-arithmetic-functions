@@ -57,6 +57,7 @@ module.exports.validate = validate
 module.exports.add = add
 module.exports.subtract = subtract
 module.exports.multiply = multiply
+module.exports.getPrecision = getPrecision
 
 function normalizeToSamePrecision(a, b) {
 	var precisionA = getPrecision(a)

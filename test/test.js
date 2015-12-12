@@ -73,3 +73,10 @@ test('multiplication', function(t) {
 	t.equal(math.multiply('9.99', '0.0001'), '0.000999')
 	t.end()
 })
+
+test('getPrecision', function(t) {
+	['848413928457294857', '848484.2', '123124.33', '0.123', '1.4321'].forEach(function(str, i) {
+		t.equal(i, math.getPrecision(str))
+	})
+	t.end()
+})
