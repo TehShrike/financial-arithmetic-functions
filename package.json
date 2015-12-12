@@ -1,0 +1,28 @@
+{
+  "name": "financial-arithmetic-functions",
+  "version": "1.0.0",
+  "description": "A set of functions for doing math on numbers without floating point numbers",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehShrike/financial-arithmetic-functions.git"
+  },
+  "keywords": [
+    "financial",
+    "arithmetic",
+    "math",
+    "money",
+    "number",
+    "bigint",
+    "bignumber"
+  ],
+  "author": "TehShrike",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/TehShrike/financial-arithmetic-functions/issues"
+  },
+  "homepage": "https://github.com/TehShrike/financial-arithmetic-functions#readme"
+}
