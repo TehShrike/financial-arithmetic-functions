@@ -37,3 +37,10 @@ math.subtract('123', '100') // => '23'
 math.subtract('44', '-11') // => '55'
 math.subtract('1.0000', '0.004', '.996')
 ```
+
+# multiply(a, b)
+
+```js
+math.multiply('123', '0.0001') // => '0.0123'
+math.multiply('99.99', '14') // => '1399.86'
+```

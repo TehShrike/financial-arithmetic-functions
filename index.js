@@ -42,9 +42,21 @@ function subtract(a, b) {
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
 
+function multiply(a, b) {
+	validateAndThrow(a)
+	validateAndThrow(b)
+
+	var normalized = normalizeToLargeEnoughPrecisionToMultiply(a, b)
+
+	var result = new BigInteger(normalized.a).multiply(new BigInteger(normalized.b)).toString()
+
+	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
+}
+
 module.exports.validate = validate
 module.exports.add = add
 module.exports.subtract = subtract
+module.exports.multiply = multiply
 
 function normalizeToSamePrecision(a, b) {
 	var precisionA = getPrecision(a)
@@ -65,14 +77,27 @@ function normalizeToSamePrecision(a, b) {
 	}
 }
 
+function normalizeToLargeEnoughPrecisionToMultiply(a, b) {
+	var precisionA = getPrecision(a)
+	var precisionB = getPrecision(b)
+	var precision = precisionA + precisionB
+
+	return {
+		a: stripDecimal(a),
+		b: stripDecimal(b),
+		precision: precision
+	}
+}
+
+
 function diff(a, b) {
 	return a > b ? (a - b) : (b - a)
 }
 
-function padWithZeroes(str, zeroes) {
-	while (zeroes > 0) {
+function padWithZeroes(str, newZeroes) {
+	while (newZeroes > 0) {
 		str += '0'
-		zeroes--
+		newZeroes--
 	}
 	return str
 }
@@ -82,6 +107,9 @@ function stripDecimal(str) {
 }
 
 function addDecimal(str, position) {
+	while (str.length < position + 1) {
+		str = '0' + str
+	}
 	var beforeTheDecimal = str.length - position
 	return str.substring(0, beforeTheDecimal) + '.' + str.substring(beforeTheDecimal)
 }

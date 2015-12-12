@@ -35,7 +35,7 @@ test('validator', function(t) {
 })
 
 test('invalid values throw', function(t) {
-	[math.add, math.subtract].forEach(function(fn) {
+	[math.add, math.subtract, math.multiply].forEach(function(fn) {
 		t.throws(function() {
 			fn('123', '123.')
 		})
@@ -52,6 +52,7 @@ test('addition', function(t) {
 	t.equal(math.add('123.4', '100'), '223.4')
 	t.equal(math.add('99999999999999999999999999999999999999999999', '1'), '100000000000000000000000000000000000000000000')
 	t.equal(math.add('123.4567', '5.55'), '129.0067')
+	t.equal(math.add('0.0001', '0.000000001'), '0.000100001')
 	t.end()
 })
 
@@ -60,5 +61,15 @@ test('subtraction', function(t) {
 	t.equal(math.subtract('123.4', '100'), '23.4')
 	t.equal(math.subtract('99999999999999999999999999999999999999999999', '1'), '99999999999999999999999999999999999999999998')
 	t.equal(math.subtract('123.4567', '5.55'), '117.9067')
+	t.equal(math.subtract('0.000100001', '0.000000001'), '0.000100000')
+	t.end()
+})
+
+test('multiplication', function(t) {
+	t.equal(math.multiply('123', '100'), '12300')
+	t.equal(math.multiply('123.4', '100'), '12340.0')
+	t.equal(math.multiply('99999999999999999999999999999999999999999999', '100.0'), '9999999999999999999999999999999999999999999900.0')
+	t.equal(math.multiply('123.4567', '5.55'), '685.184685')
+	t.equal(math.multiply('9.99', '0.0001'), '0.000999')
 	t.end()
 })
