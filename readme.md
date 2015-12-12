@@ -44,3 +44,10 @@ math.subtract('1.0000', '0.004') // => '0.9960'
 math.multiply('123', '0.0001') // => '0.0123'
 math.multiply('99.99', '14') // => '1399.86'
 ```
+
+# getPrecision(str)
+
+```js
+math.getPrecision('12.666') // => 3
+math.getPrecision('999') // => 0
+```
