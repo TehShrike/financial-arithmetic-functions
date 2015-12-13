@@ -92,3 +92,9 @@ test('no negative zero', function(t) {
 
 	t.end()
 })
+
+test('putting the minus symbol in the wrong spot', function(t) {
+	t.equal(math.add('-1.00001', '1'), '-0.00001')
+	t.equal(math.subtract('13', '13.000001'), '-0.000001')
+	t.end()
+})

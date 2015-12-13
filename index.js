@@ -108,9 +108,18 @@ function stripDecimal(str) {
 }
 
 function addDecimal(str, position) {
+	var isNegative = str[0] === '-'
+	if (isNegative) {
+		str = str.substring(1)
+	}
+
 	while (str.length < position + 1) {
 		str = '0' + str
 	}
 	var beforeTheDecimal = str.length - position
-	return str.substring(0, beforeTheDecimal) + '.' + str.substring(beforeTheDecimal)
+	var newNumber = str.substring(0, beforeTheDecimal) + '.' + str.substring(beforeTheDecimal)
+	if (isNegative) {
+		newNumber = '-' + newNumber
+	}
+	return newNumber
 }
