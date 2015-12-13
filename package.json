@@ -1,6 +1,6 @@
 {
   "name": "financial-arithmetic-functions",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A set of functions for doing math on numbers without floating point numbers",
   "main": "index.js",
   "scripts": {
