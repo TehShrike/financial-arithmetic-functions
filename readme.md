@@ -1,4 +1,4 @@
-A set of functions for doing financial arithmetic.  This is a library you could use to build a friendlier money-math library, like the [financial-arithmeticator](https://github.com/TehShrike/financial-arithmeticator).
+A set of functions for doing financial arithmetic.  This is a library you could use to build a friendlier money-math library, like the [financial-number](https://github.com/TehShrike/financial-number) library.
 
 1. Takes strings only
 2. Does all math with the [jsbn](https://github.com/andyperlitch/jsbn) bigint library
