@@ -6,8 +6,7 @@
   "scripts": {
     "test:node": "tape test/*.js | faucet",
     "test:readme": "jsmd readme.md",
-    "test:browserify": "browserify test/test.js | node | faucet",
-    "test": "npm run test:node && npm run test:browserify && npm run test:readme"
+    "test": "npm run test:node && npm run test:readme"
   },
   "repository": {
     "type": "git",
@@ -29,12 +28,11 @@
   },
   "homepage": "https://github.com/TehShrike/financial-arithmetic-functions#readme",
   "devDependencies": {
-    "browserify": "12.0.1",
     "faucet": "0.0.1",
-    "jsmd": "0.3.1",
-    "tape": "4.2.2"
+    "jsmd": "1.0.0",
+    "tape": "4.9.1"
   },
   "dependencies": {
-    "jsbn": "0.1.0"
+    "jsbi": "1.0.0"
   }
 }

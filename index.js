@@ -1,15 +1,15 @@
-var BigInteger = require('jsbn').BigInteger
+const BigInt = require(`jsbi`).BigInt
 
-var allDigits = /^(-|\+)?\d+$/
-var withDecimal = /^(-|\+)?(\d+)\.(\d+)$/
+const allDigits = /^(-|\+)?\d+$/
+const withDecimal = /^(-|\+)?(\d+)\.(\d+)$/
 
 function validate(str) {
-	return typeof str === 'string' && (allDigits.test(str) || withDecimal.test(str))
+	return typeof str === `string` && (allDigits.test(str) || withDecimal.test(str))
 }
 
 function validateAndThrow(str) {
 	if (!validate(str)) {
-		throw new Error('Invalid input ' + str)
+		throw new Error(`Invalid input ` + str)
 	}
 }
 
@@ -17,16 +17,16 @@ function getPrecision(str) {
 	if (allDigits.test(str)) {
 		return 0
 	} else {
-		return str.split('.')[1].length
+		return str.split(`.`)[1].length
 	}
 }
 
 function add(a, b) {
 	validateAndThrow(a)
 	validateAndThrow(b)
-	var normalized = normalizeToSamePrecision(a, b)
+	const normalized = normalizeToSamePrecision(a, b)
 
-	var sum = new BigInteger(normalized.a).add(new BigInteger(normalized.b)).toString()
+	const sum = BigInt(normalized.a).add(BigInt(normalized.b)).toString()
 
 	return normalized.precision > 0 ? addDecimal(sum, normalized.precision) : sum
 }
@@ -35,9 +35,9 @@ function subtract(a, b) {
 	validateAndThrow(a)
 	validateAndThrow(b)
 
-	var normalized = normalizeToSamePrecision(a, b)
+	const normalized = normalizeToSamePrecision(a, b)
 
-	var result = new BigInteger(normalized.a).subtract(new BigInteger(normalized.b)).toString()
+	const result = BigInt(normalized.a).subtract(BigInt(normalized.b)).toString()
 
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
@@ -46,24 +46,26 @@ function multiply(a, b) {
 	validateAndThrow(a)
 	validateAndThrow(b)
 
-	var normalized = normalizeToLargeEnoughPrecisionToMultiply(a, b)
+	const normalized = normalizeToLargeEnoughPrecisionToMultiply(a, b)
 
-	var result = new BigInteger(normalized.a).multiply(new BigInteger(normalized.b)).toString()
+	const result = BigInt(normalized.a).multiply(BigInt(normalized.b)).toString()
 
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
 
-module.exports.validate = validate
-module.exports.add = add
-module.exports.subtract = subtract
-module.exports.multiply = multiply
-module.exports.getPrecision = getPrecision
+module.exports = {
+	validate,
+	add,
+	subtract,
+	multiply,
+	getPrecision,
+}
 
 function normalizeToSamePrecision(a, b) {
-	var precisionA = getPrecision(a)
-	var precisionB = getPrecision(b)
-	var differenceInPrecisions = diff(precisionA, precisionB)
-	var precision = Math.max(precisionA, precisionB)
+	const precisionA = getPrecision(a)
+	const precisionB = getPrecision(b)
+	const differenceInPrecisions = diff(precisionA, precisionB)
+	const precision = Math.max(precisionA, precisionB)
 
 	if (precisionA > precisionB) {
 		b = padWithZeroes(b, differenceInPrecisions)
@@ -74,19 +76,19 @@ function normalizeToSamePrecision(a, b) {
 	return {
 		a: stripDecimal(a),
 		b: stripDecimal(b),
-		precision: precision
+		precision,
 	}
 }
 
 function normalizeToLargeEnoughPrecisionToMultiply(a, b) {
-	var precisionA = getPrecision(a)
-	var precisionB = getPrecision(b)
-	var precision = precisionA + precisionB
+	const precisionA = getPrecision(a)
+	const precisionB = getPrecision(b)
+	const precision = precisionA + precisionB
 
 	return {
 		a: stripDecimal(a),
 		b: stripDecimal(b),
-		precision: precision
+		precision,
 	}
 }
 
@@ -97,29 +99,29 @@ function diff(a, b) {
 
 function padWithZeroes(str, newZeroes) {
 	while (newZeroes > 0) {
-		str += '0'
+		str += `0`
 		newZeroes--
 	}
 	return str
 }
 
 function stripDecimal(str) {
-	return str.replace('.', '')
+	return str.replace(`.`, ``)
 }
 
 function addDecimal(str, position) {
-	var isNegative = str[0] === '-'
+	const isNegative = str[0] === `-`
 	if (isNegative) {
 		str = str.substring(1)
 	}
 
 	while (str.length < position + 1) {
-		str = '0' + str
+		str = `0` + str
 	}
-	var beforeTheDecimal = str.length - position
-	var newNumber = str.substring(0, beforeTheDecimal) + '.' + str.substring(beforeTheDecimal)
+	const beforeTheDecimal = str.length - position
+	let newNumber = str.substring(0, beforeTheDecimal) + `.` + str.substring(beforeTheDecimal)
 	if (isNegative) {
-		newNumber = '-' + newNumber
+		newNumber = `-` + newNumber
 	}
 	return newNumber
 }

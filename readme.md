@@ -1,14 +1,14 @@
 A set of functions for doing financial arithmetic.  This is a library you could use to build a friendlier money-math library, like the [financial-number](https://github.com/TehShrike/financial-number) library.
 
 1. Takes strings only
-2. Does all math with the [jsbn](https://github.com/andyperlitch/jsbn) bigint library
+2. Does all math with the [jsbi](https://github.com/GoogleChromeLabs/jsbi) bigint library (until [BigInt](https://github.com/tc39/proposal-bigint) lands in JS/Babel)
 3. Multiplication results have a precision that is twice the precision of their inputs. `9.55` * `1.50` = `14.3250`
 4. Addition and subtraction results have a precision as great as the highest precision of the two inputs. `1.5` + `1.00` = `2.50`
 
-Require with `var math = require('financial-arithmetic-functions')`
+Require with `const math = require('financial-arithmetic-functions')`
 
 <!-- js
-var math = require('./')
+const math = require('./')
 -->
 
 # validate(str)
