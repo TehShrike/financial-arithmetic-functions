@@ -1,4 +1,4 @@
-const BigInt = require(`jsbi`).BigInt
+const JSBI = require(`jsbi`)
 
 const allDigits = /^(-|\+)?\d+$/
 const withDecimal = /^(-|\+)?(\d+)\.(\d+)$/
@@ -26,7 +26,7 @@ function add(a, b) {
 	validateAndThrow(b)
 	const normalized = normalizeToSamePrecision(a, b)
 
-	const sum = BigInt(normalized.a).add(BigInt(normalized.b)).toString()
+	const sum = JSBI.add(JSBI.BigInt(normalized.a), JSBI.BigInt(normalized.b)).toString()
 
 	return normalized.precision > 0 ? addDecimal(sum, normalized.precision) : sum
 }
@@ -37,7 +37,7 @@ function subtract(a, b) {
 
 	const normalized = normalizeToSamePrecision(a, b)
 
-	const result = BigInt(normalized.a).subtract(BigInt(normalized.b)).toString()
+	const result = JSBI.subtract(JSBI.BigInt(normalized.a), JSBI.BigInt(normalized.b)).toString()
 
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
@@ -48,7 +48,7 @@ function multiply(a, b) {
 
 	const normalized = normalizeToLargeEnoughPrecisionToMultiply(a, b)
 
-	const result = BigInt(normalized.a).multiply(BigInt(normalized.b)).toString()
+	const result = JSBI.multiply(JSBI.BigInt(normalized.a), JSBI.BigInt(normalized.b)).toString()
 
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
