@@ -74,6 +74,15 @@ test('multiplication', function(t) {
 	t.end()
 })
 
+test('divisplication', function(t) {
+	t.equal(math.division('123', '100', 2), '1.23')
+	t.equal(math.division('123.4', '10', 3), '12.340')
+	t.equal(math.division('99999999999999999999999999999999999999999999', '100.0'), '999999999999999999999999999999999999999999')
+	t.equal(math.division('123.4567', '5.55', 3), '22.244')
+	t.equal(math.division('9.99', '0.0001'), '99900')
+	t.end()
+})
+
 test('getPrecision', function(t) {
 	['848413928457294857', '848484.2', '123124.33', '0.123', '1.4321'].forEach(function(str, i) {
 		t.equal(i, math.getPrecision(str))
