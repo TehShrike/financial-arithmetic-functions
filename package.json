@@ -32,7 +32,5 @@
     "jsmd": "1.0.0",
     "tape": "4.9.1"
   },
-  "dependencies": {
-    "jsbi": "~2.0.2"
-  }
+  "dependencies": {}
 }
