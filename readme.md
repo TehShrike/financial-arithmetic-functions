@@ -1,7 +1,7 @@
 A set of functions for doing financial arithmetic.  This is a library you could use to build a friendlier money-math library, like the [financial-number](https://github.com/TehShrike/financial-number) library.
 
 1. Takes strings only
-2. Does all math with the [jsbi](https://github.com/GoogleChromeLabs/jsbi) bigint library (until [BigInt](https://github.com/tc39/proposal-bigint) lands in JS/Babel)
+2. Does all math with the native [`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) implementation (use 1.x release if you want a version that works in older browsers)
 3. Multiplication results have a precision that is twice the precision of their inputs. `9.55` * `1.50` = `14.3250`
 4. Addition and subtraction results have a precision as great as the highest precision of the two inputs. `1.5` + `1.00` = `2.50`
 
