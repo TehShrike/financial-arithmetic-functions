@@ -51,11 +51,26 @@ function multiply(a, b) {
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
 
+function division(a, b, precision) {
+	validateAndThrow(a)
+	validateAndThrow(b)
+	if (typeof precision !== 'number' || !isFinite(precision) || precision < 0 || Math.floor(precision) !== precision) {
+		precision = 0
+	}
+
+	const normalized = normalizeToSamePrecision(a, b)
+
+	const result = JSBI.divide(JSBI.BigInt(padWithZeroes(normalized.a, precision)), JSBI.BigInt(normalized.b)).toString()
+
+	return precision ? addDecimal(result, precision) : result
+}
+
 module.exports = {
 	validate,
 	add,
 	subtract,
 	multiply,
+	division,
 	getPrecision,
 }
 
