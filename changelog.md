@@ -1,3 +1,7 @@
+# 3.1.0
+
+- Add `modulo` function
+
 # 3.0.0
 
 - Use native `BigInt` instead of a library

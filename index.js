@@ -51,12 +51,25 @@ function multiply(a, b) {
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
 
+
+function modulo(dividend, divisor) {
+	validateAndThrow(dividend)
+	validateAndThrow(divisor)
+
+	const normalized = normalizeToSamePrecision(dividend, divisor)
+
+	const result = (BigInt(normalized.a) % BigInt(normalized.b)).toString()
+
+	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
+}
+
 module.exports = {
 	validate,
 	add,
 	subtract,
 	multiply,
 	getPrecision,
+	modulo,
 }
 
 function normalizeToSamePrecision(a, b) {

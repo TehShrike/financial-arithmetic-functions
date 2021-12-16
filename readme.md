@@ -51,3 +51,12 @@ math.multiply('99.99', '14') // => '1399.86'
 math.getPrecision('12.666') // => 3
 math.getPrecision('999') // => 0
 ```
+
+# modulo(dividend, divisor)
+
+```js
+math.modulo('10', '2') // => '0'
+math.modulo('10.0', '2') // => '0.0'
+math.modulo('12.33', '1') // => '0.33'
+math.modulo('12.33', '1.00') // => '0.33'
+```
