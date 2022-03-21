@@ -4,8 +4,9 @@
   "description": "A set of functions for doing math on numbers without floating point numbers",
   "main": "index.js",
   "scripts": {
-    "test:node": "tape test/*.js | faucet",
+    "test:node": "tsm test/test.ts | faucet",
     "test:readme": "jsmd readme.md",
+    "test:lint": "eslint .",
     "test": "npm run test:node && npm run test:readme"
   },
   "repository": {
@@ -28,9 +29,13 @@
   },
   "homepage": "https://github.com/TehShrike/financial-arithmetic-functions#readme",
   "devDependencies": {
+    "@types/tape": "^4.13.2",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.11.0",
     "faucet": "0.0.1",
     "jsmd": "^1.0.2",
-    "tape": "4.9.1"
-  },
-  "dependencies": {}
+    "tape": "4.9.1",
+    "tsm": "^2.2.1"
+  }
 }

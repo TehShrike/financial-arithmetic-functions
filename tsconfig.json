@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"noImplicitAny": true,
+		"diagnostics": true,
+		"noImplicitThis": true,
+		"noEmitOnError": true,
+		"target": "es2021",
+		"lib": ["es2021", "dom"]
+	},
+	"module": "ES6",
+	"include": [
+		"index.ts",
+		"test/test.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
