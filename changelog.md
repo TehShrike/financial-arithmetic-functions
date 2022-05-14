@@ -1,3 +1,7 @@
+# 3.2.0
+
+- Now written in TypeScript
+
 # 3.1.0
 
 - Add `modulo` function
