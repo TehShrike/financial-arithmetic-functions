@@ -1,5 +1,5 @@
-const test = require(`tape`)
-const math = require(`..`)
+import test from 'tape'
+import * as math from '../index'
 
 test(`validator`, t => {
 	t.ok(math.validate(`123`))

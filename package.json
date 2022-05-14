@@ -2,11 +2,24 @@
   "name": "financial-arithmetic-functions",
   "version": "3.1.0",
   "description": "A set of functions for doing math on numbers without floating point numbers",
-  "main": "index.js",
+  "main": "index.cjs",
+  "module": "index.mjs",
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.mjs"
+    }
+  },
   "scripts": {
-    "test:node": "tape test/*.js | faucet",
+    "test:node": "tsm test/test.ts | faucet",
     "test:readme": "jsmd readme.md",
-    "test": "npm run test:node && npm run test:readme"
+    "test:lint": "eslint .",
+    "test:types": "tsc --noEmit",
+    "test": "run-p test:*",
+    "build:cjs": "esbuild index.ts --bundle --format=cjs --outfile=index.cjs",
+    "build:esm": "esbuild index.ts --bundle --format=esm --outfile=index.mjs",
+    "build:types": "tsc index.ts --emitDeclarationOnly --declaration",
+    "build": "run-p build:*"
   },
   "repository": {
     "type": "git",
@@ -28,9 +41,15 @@
   },
   "homepage": "https://github.com/TehShrike/financial-arithmetic-functions#readme",
   "devDependencies": {
+    "@types/tape": "^4.13.2",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "esbuild": "^0.14.39",
+    "eslint": "^8.11.0",
     "faucet": "0.0.1",
     "jsmd": "^1.0.2",
-    "tape": "4.9.1"
-  },
-  "dependencies": {}
+    "npm-run-all": "^4.1.5",
+    "tape": "4.9.1",
+    "tsm": "^2.2.1"
+  }
 }

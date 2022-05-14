@@ -1,17 +1,17 @@
 const allDigits = /^(-|\+)?\d+$/
 const withDecimal = /^(-|\+)?(\d+)\.(\d+)$/
 
-function validate(str) {
+export function validate(str: any) {
 	return typeof str === `string` && (allDigits.test(str) || withDecimal.test(str))
 }
 
-function validateAndThrow(str) {
+function validateAndThrow(str: string) {
 	if (!validate(str)) {
 		throw new Error(`Invalid input ` + str)
 	}
 }
 
-function getPrecision(str) {
+export function getPrecision(str: string) {
 	if (allDigits.test(str)) {
 		return 0
 	} else {
@@ -19,7 +19,7 @@ function getPrecision(str) {
 	}
 }
 
-function add(a, b) {
+export function add(a: string, b: string) {
 	validateAndThrow(a)
 	validateAndThrow(b)
 	const normalized = normalizeToSamePrecision(a, b)
@@ -29,7 +29,7 @@ function add(a, b) {
 	return normalized.precision > 0 ? addDecimal(sum, normalized.precision) : sum
 }
 
-function subtract(a, b) {
+export function subtract(a: string, b: string) {
 	validateAndThrow(a)
 	validateAndThrow(b)
 
@@ -40,7 +40,7 @@ function subtract(a, b) {
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
 
-function multiply(a, b) {
+export function multiply(a: string, b: string) {
 	validateAndThrow(a)
 	validateAndThrow(b)
 
@@ -52,7 +52,7 @@ function multiply(a, b) {
 }
 
 
-function modulo(dividend, divisor) {
+export function modulo(dividend: string, divisor: string) {
 	validateAndThrow(dividend)
 	validateAndThrow(divisor)
 
@@ -63,16 +63,7 @@ function modulo(dividend, divisor) {
 	return normalized.precision > 0 ? addDecimal(result, normalized.precision) : result
 }
 
-module.exports = {
-	validate,
-	add,
-	subtract,
-	multiply,
-	getPrecision,
-	modulo,
-}
-
-function normalizeToSamePrecision(a, b) {
+function normalizeToSamePrecision(a: string, b: string) {
 	const precisionA = getPrecision(a)
 	const precisionB = getPrecision(b)
 	const differenceInPrecisions = diff(precisionA, precisionB)
@@ -91,7 +82,7 @@ function normalizeToSamePrecision(a, b) {
 	}
 }
 
-function normalizeToLargeEnoughPrecisionToMultiply(a, b) {
+function normalizeToLargeEnoughPrecisionToMultiply(a: string, b: string) {
 	const precisionA = getPrecision(a)
 	const precisionB = getPrecision(b)
 	const precision = precisionA + precisionB
@@ -104,11 +95,11 @@ function normalizeToLargeEnoughPrecisionToMultiply(a, b) {
 }
 
 
-function diff(a, b) {
+function diff(a: number, b: number) {
 	return a > b ? (a - b) : (b - a)
 }
 
-function padWithZeroes(str, newZeroes) {
+function padWithZeroes(str: string, newZeroes: number) {
 	while (newZeroes > 0) {
 		str += `0`
 		newZeroes--
@@ -116,11 +107,11 @@ function padWithZeroes(str, newZeroes) {
 	return str
 }
 
-function stripDecimal(str) {
+function stripDecimal(str: string) {
 	return str.replace(`.`, ``)
 }
 
-function addDecimal(str, position) {
+function addDecimal(str: string, position: number) {
 	const isNegative = str[0] === `-`
 	if (isNegative) {
 		str = str.substring(1)
