@@ -1,3 +1,7 @@
+# 3.3.0
+
+- Type exports now explicitly set in the package.json
+
 # 3.2.0
 
 - Now written in TypeScript
