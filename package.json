@@ -4,6 +4,11 @@
 	"description": "A set of functions for doing math on numbers without floating point numbers",
 	"main": "index.cjs",
 	"module": "index.mjs",
+	"files": [
+		"index.cjs",
+		"index.mjs",
+		"index.d.ts"
+	],
 	"exports": {
 		".": {
 			"require": "./index.cjs",
