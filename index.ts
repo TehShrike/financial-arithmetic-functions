@@ -41,6 +41,13 @@ export function modulo(dividend: FinancialNumberValue, divisor: FinancialNumberV
 	}
 }
 
+export function pow(base: FinancialNumberValue, exponent: bigint): FinancialNumberValue {
+	return {
+		value: base.value ** exponent,
+		decimal_places: base.decimal_places * exponent,
+	}
+}
+
 function normalizeToSamePrecision(a: FinancialNumberValue, b: FinancialNumberValue) {
 	const decimal_places = a.decimal_places > b.decimal_places ? a.decimal_places : b.decimal_places
 	const differenceA = decimal_places - a.decimal_places

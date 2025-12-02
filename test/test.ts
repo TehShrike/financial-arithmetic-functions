@@ -61,3 +61,11 @@ test(`modulo`, t => {
 	t.equal(math.modulo(n(1233n, 2n), n(1n, 0n)), n(33n, 2n))
 	t.equal(math.modulo(n(1233n, 2n), n(100n, 2n)), n(33n, 2n))
 })
+
+test(`pow`, t => {
+	t.equal(math.pow(n(2n, 0n), 3n), n(8n, 0n))
+	t.equal(math.pow(n(25n, 1n), 2n), n(625n, 2n))
+	t.equal(math.pow(n(11n, 1n), 3n), n(1331n, 3n))
+	t.equal(math.pow(n(10n, 0n), 0n), n(1n, 0n))
+	t.equal(math.pow(n(5n, 2n), 1n), n(5n, 2n))
+})

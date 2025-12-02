@@ -66,3 +66,11 @@ math.modulo({ value: 100n, decimal_places: 1n }, { value: 2n, decimal_places: 0n
 math.modulo({ value: 1233n, decimal_places: 2n }, { value: 1n, decimal_places: 0n }) // => { value: 33n, decimal_places: 2n }
 math.modulo({ value: 1233n, decimal_places: 2n }, { value: 100n, decimal_places: 2n }) // => { value: 33n, decimal_places: 2n }
 ```
+
+## pow(base, exponent)
+
+```js
+math.pow({ value: 2n, decimal_places: 0n }, 3n) // => { value: 8n, decimal_places: 0n }
+math.pow({ value: 25n, decimal_places: 1n }, 2n) // => { value: 625n, decimal_places: 2n }
+math.pow({ value: 11n, decimal_places: 1n }, 3n) // => { value: 1331n, decimal_places: 3n }
+```
