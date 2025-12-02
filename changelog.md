@@ -1,3 +1,8 @@
+# 4.1.0
+
+- export the `normalizeToSameDecimalPlaces` function
+- export the `FinancialNumberValue` type
+
 # 4.0.0
 
 - This library now only deals in `{ value: bigint, decimal_places: bigint }` objects, no more strings

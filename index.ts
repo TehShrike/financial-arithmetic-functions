@@ -1,4 +1,4 @@
-type FinancialNumberValue = {
+export type FinancialNumberValue = {
 	value: bigint
 	decimal_places: bigint
 }
@@ -8,7 +8,7 @@ export function validate(input: unknown): input is FinancialNumberValue {
 }
 
 export function add(a: FinancialNumberValue, b: FinancialNumberValue): FinancialNumberValue {
-	const normalized = normalizeToSamePrecision(a, b)
+	const normalized = normalizeToSameDecimalPlaces(a, b)
 
 	return {
 		value: normalized.a + normalized.b,
@@ -17,7 +17,7 @@ export function add(a: FinancialNumberValue, b: FinancialNumberValue): Financial
 }
 
 export function subtract(a: FinancialNumberValue, b: FinancialNumberValue): FinancialNumberValue {
-	const normalized = normalizeToSamePrecision(a, b)
+	const normalized = normalizeToSameDecimalPlaces(a, b)
 
 	return {
 		value: normalized.a - normalized.b,
@@ -33,7 +33,7 @@ export function multiply(a: FinancialNumberValue, b: FinancialNumberValue): Fina
 }
 
 export function modulo(dividend: FinancialNumberValue, divisor: FinancialNumberValue): FinancialNumberValue {
-	const normalized = normalizeToSamePrecision(dividend, divisor)
+	const normalized = normalizeToSameDecimalPlaces(dividend, divisor)
 
 	return {
 		value: normalized.a % normalized.b,
@@ -48,7 +48,7 @@ export function pow(base: FinancialNumberValue, exponent: bigint): FinancialNumb
 	}
 }
 
-function normalizeToSamePrecision(a: FinancialNumberValue, b: FinancialNumberValue) {
+export function normalizeToSameDecimalPlaces(a: FinancialNumberValue, b: FinancialNumberValue) {
 	const decimal_places = a.decimal_places > b.decimal_places ? a.decimal_places : b.decimal_places
 	const differenceA = decimal_places - a.decimal_places
 	const differenceB = decimal_places - b.decimal_places

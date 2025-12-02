@@ -62,3 +62,11 @@ test(`pow`, () => {
 	deepStrictEqual(math.pow(n(10n, 0n), 0n), n(1n, 0n))
 	deepStrictEqual(math.pow(n(5n, 2n), 1n), n(5n, 2n))
 })
+
+test(`normalizeToSameDecimalPlaces`, () => {
+	deepStrictEqual(math.normalizeToSameDecimalPlaces(n(123n, 2n), n(456n, 2n)), { a: 123n, b: 456n, decimal_places: 2n })
+	deepStrictEqual(math.normalizeToSameDecimalPlaces(n(1234n, 3n), n(56n, 1n)), { a: 1234n, b: 5600n, decimal_places: 3n })
+	deepStrictEqual(math.normalizeToSameDecimalPlaces(n(12n, 1n), n(3456n, 4n)), { a: 12000n, b: 3456n, decimal_places: 4n })
+	deepStrictEqual(math.normalizeToSameDecimalPlaces(n(100n, 0n), n(200n, 0n)), { a: 100n, b: 200n, decimal_places: 0n })
+	deepStrictEqual(math.normalizeToSameDecimalPlaces(n(1n, 0n), n(1n, 6n)), { a: 1000000n, b: 1n, decimal_places: 6n })
+})

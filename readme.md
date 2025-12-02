@@ -74,3 +74,15 @@ math.pow({ value: 2n, decimal_places: 0n }, 3n) // => { value: 8n, decimal_place
 math.pow({ value: 25n, decimal_places: 1n }, 2n) // => { value: 625n, decimal_places: 2n }
 math.pow({ value: 11n, decimal_places: 1n }, 3n) // => { value: 1331n, decimal_places: 3n }
 ```
+
+## normalizeToSameDecimalPlaces(a, b)
+
+Takes two values and returns their values scaled to the same number of decimal places.
+
+Returns `{ a: bigint, b: bigint, decimal_places: bigint }`.
+
+```js
+math.normalizeToSameDecimalPlaces({ value: 12n, decimal_places: 1n }, { value: 3456n, decimal_places: 4n }) // => { a: 12000n, b: 3456n, decimal_places: 4n }
+math.normalizeToSameDecimalPlaces({ value: 1234n, decimal_places: 3n }, { value: 56n, decimal_places: 1n }) // => { a: 1234n, b: 5600n, decimal_places: 3n }
+math.normalizeToSameDecimalPlaces({ value: 100n, decimal_places: 0n }, { value: 200n, decimal_places: 0n }) // => { a: 100n, b: 200n, decimal_places: 0n }
+```
