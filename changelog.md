@@ -1,3 +1,8 @@
+# 4.0.0
+
+- This library now only deals in `{ value: bigint, decimal_places: bigint }` objects, no more strings
+- added `pow` function
+
 # 3.3.0
 
 - Type exports now explicitly set in the package.json
