@@ -9,29 +9,19 @@ const test = (name: string, fn: TestFunction) => {
 	console.log(`✅`)
 }
 
+const n = (value: bigint, decimal_places: bigint) => ({ value, decimal_places })
+
 test(`validator`, t => {
-	t.is(math.validate(`123`), true)
-	t.is(math.validate(`123.11`), true)
-	t.is(math.validate(`+123`), true)
-	t.is(math.validate(`+123.123`), true)
-	t.is(math.validate(`-123`), true)
-	t.is(math.validate(`-123.123`), true)
+	t.is(math.validate(n(123n, 0n)), true)
+	t.is(math.validate(n(12311n, 2n)), true)
+	t.is(math.validate(n(123n, 0n)), true)
+	t.is(math.validate(n(123123n, 3n)), true)
+	t.is(math.validate(n(-123n, 0n)), true)
+	t.is(math.validate(n(-123123n, 3n)), true)
 
-	t.not.ok(math.validate(`.123`))
-	t.not.ok(math.validate(`123.`))
-	t.not.ok(math.validate(`.123`))
-
-	t.not.ok(math.validate(`123e10`))
-	t.not.ok(math.validate(`123a`))
-	t.not.ok(math.validate(`a123`))
-	t.not.ok(math.validate(`+123a`))
-	t.not.ok(math.validate(`-123a`))
-	t.not.ok(math.validate(`+123.a1`))
-	t.not.ok(math.validate(`-123.a1`))
-	t.not.ok(math.validate(`b+123`))
-	t.not.ok(math.validate(`b-123`))
-	t.not.ok(math.validate(`++123`))
-	t.not.ok(math.validate(`+-123`))
+	t.not.ok(math.validate(n(123n, -1n)))
+	t.not.ok(math.validate({ value: 123, precision: 0n }))
+	t.not.ok(math.validate({ value: 123n, precision: 0 }))
 
 	t.not.ok(math.validate(123))
 	t.not.ok(math.validate(123.321))
@@ -40,66 +30,34 @@ test(`validator`, t => {
 	t.not.ok(math.validate({}))
 })
 
-test(`invalid values throw`, t => {
-	[ math.add, math.subtract, math.multiply ].forEach(fn => {
-		t.throws(() => {
-			fn(`123`, `123.`)
-		})
-		t.throws(() => {
-			fn(`a`, `123`)
-		})
-	})
-})
-
 test(`addition`, t => {
-	t.equal(math.add(`123`, `100`), `223`)
-	t.equal(math.add(`123.4`, `100`), `223.4`)
-	t.equal(math.add(`99999999999999999999999999999999999999999999`, `1`), `100000000000000000000000000000000000000000000`)
-	t.equal(math.add(`123.4567`, `5.55`), `129.0067`)
-	t.equal(math.add(`0.0001`, `0.000000001`), `0.000100001`)
+	t.equal(math.add(n(123n, 0n), n(100n, 0n)), n(223n, 0n))
+	t.equal(math.add(n(1234n, 1n), n(100n, 0n)), n(2234n, 1n))
+	t.equal(math.add(n(99999999999999999999999999999999999999999999n, 0n), n(1n, 0n)), n(100000000000000000000000000000000000000000000n, 0n))
+	t.equal(math.add(n(1234567n, 4n), n(555n, 2n)), n(1290067n, 4n))
+	t.equal(math.add(n(1n, 4n), n(1n, 9n)), n(100001n, 9n))
 })
 
 test(`subtraction`, t => {
-	t.equal(math.subtract(`123`, `100`), `23`)
-	t.equal(math.subtract(`123.4`, `100`), `23.4`)
-	t.equal(math.subtract(`99999999999999999999999999999999999999999999`, `1`), `99999999999999999999999999999999999999999998`)
-	t.equal(math.subtract(`123.4567`, `5.55`), `117.9067`)
-	t.equal(math.subtract(`0.000100001`, `0.000000001`), `0.000100000`)
+	t.equal(math.subtract(n(123n, 0n), n(100n, 0n)), n(23n, 0n))
+	t.equal(math.subtract(n(1234n, 1n), n(100n, 0n)), n(234n, 1n))
+	t.equal(math.subtract(n(99999999999999999999999999999999999999999999n, 0n), n(1n, 0n)), n(99999999999999999999999999999999999999999998n, 0n))
+	t.equal(math.subtract(n(1234567n, 4n), n(555n, 2n)), n(1179067n, 4n))
+	t.equal(math.subtract(n(100001n, 9n), n(1n, 9n)), n(100000n, 9n))
 })
 
 test(`multiplication`, t => {
-	t.equal(math.multiply(`123`, `100`), `12300`)
-	t.equal(math.multiply(`123.4`, `100`), `12340.0`)
-	t.equal(math.multiply(`99999999999999999999999999999999999999999999`, `100.0`), `9999999999999999999999999999999999999999999900.0`)
-	t.equal(math.multiply(`123.4567`, `5.55`), `685.184685`)
-	t.equal(math.multiply(`9.99`, `0.0001`), `0.000999`)
-})
-
-test(`getPrecision`, t => {
-	[ `848413928457294857`, `848484.2`, `123124.33`, `0.123`, `1.4321` ].forEach((str, i) => {
-		t.equal(i, math.getPrecision(str))
-	})
-})
-
-test(`no negative zero`, t => {
-	t.equal(math.add(`-1`, `1`), `0`)
-	t.equal(math.subtract(`1`, `1`), `0`)
-	t.equal(math.multiply(`-1`, `0`), `0`)
-
-	t.equal(math.add(`-1`, `1.0`), `0.0`)
-	t.equal(math.subtract(`1`, `1.0`), `0.0`)
-	t.equal(math.multiply(`-1`, `0.0`), `0.0`)
-})
-
-test(`putting the minus symbol in the wrong spot`, t => {
-	t.equal(math.add(`-1.00001`, `1`), `-0.00001`)
-	t.equal(math.subtract(`13`, `13.000001`), `-0.000001`)
+	t.equal(math.multiply(n(123n, 0n), n(100n, 0n)), n(12300n, 0n))
+	t.equal(math.multiply(n(1234n, 1n), n(100n, 0n)), n(123400n, 1n))
+	t.equal(math.multiply(n(99999999999999999999999999999999999999999999n, 0n), n(1000n, 1n)), n(99999999999999999999999999999999999999999999000n, 1n))
+	t.equal(math.multiply(n(1234567n, 4n), n(555n, 2n)), n(685184685n, 6n))
+	t.equal(math.multiply(n(999n, 2n), n(1n, 4n)), n(999n, 6n))
 })
 
 test(`modulo`, t => {
-	t.equal(math.modulo(`10`, `2`), `0`)
-	t.equal(math.modulo(`10`, `3`), `1`)
-	t.equal(math.modulo(`10.0`, `2`), `0.0`)
-	t.equal(math.modulo(`12.33`, `1`), `0.33`)
-	t.equal(math.modulo(`12.33`, `1.00`), `0.33`)
+	t.equal(math.modulo(n(10n, 0n), n(2n, 0n)), n(0n, 0n))
+	t.equal(math.modulo(n(10n, 0n), n(3n, 0n)), n(1n, 0n))
+	t.equal(math.modulo(n(100n, 1n), n(2n, 0n)), n(0n, 1n))
+	t.equal(math.modulo(n(1233n, 2n), n(1n, 0n)), n(33n, 2n))
+	t.equal(math.modulo(n(1233n, 2n), n(100n, 2n)), n(33n, 2n))
 })

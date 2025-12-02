@@ -5,8 +5,8 @@
 		"diagnostics": true,
 		"noImplicitThis": true,
 		"noEmitOnError": true,
-		"target": "es2024",
-		"lib": ["es2024"],
+		"target": "esnext",
+		"lib": ["esnext"],
 		"types": ["node"],
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true
