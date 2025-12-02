@@ -12,13 +12,12 @@
 		}
 	},
 	"scripts": {
-		"build_test": "esbuild test/test.ts --bundle --format=esm --outfile=test/test.mjs",
-		"test:node": "npm run build_test && node test/test.mjs",
+		"test:node": "node --test test/test.ts",
 		"test:types": "tsc --noEmit",
 		"test": "run-p test:*",
 		"build:cjs": "esbuild index.ts --bundle --format=cjs --outfile=index.cjs",
 		"build:esm": "esbuild index.ts --bundle --format=esm --outfile=index.mjs",
-		"build:types": "tsc index.ts --emitDeclarationOnly --declaration",
+		"build:types": "tsc index.ts --emitDeclarationOnly --declaration --target esnext --skipLibCheck",
 		"build": "run-p build:*"
 	},
 	"repository": {
@@ -44,7 +43,6 @@
 		"@types/node": "^22.13.4",
 		"esbuild": "^0.14.39",
 		"npm-run-all": "^4.1.5",
-		"typescript": "^5.7.3",
-		"uvu": "^0.5.6"
+		"typescript": "^5.7.3"
 	}
 }
